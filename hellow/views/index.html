@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="text/html, initial-scale=1.0">
+    <title>许愿墙</title>
+</head>
+<style>
+    #container .item{
+        width: 150px;
+        height: 150px;
+        display: inline-block;
+    }
+</style>
+<body>
+    <h2 class = "title" style="">快来写上你的愿望吧</h2>
+    <div id="container" data-list="{{list}}"></div>
+    <!-- 添加许愿墙 -->
+    <form action="add" method="POST" id="form" style="height: 136px;">
+        <!-- 许愿者姓名 -->
+        <input type="text" class="input" id="name" name='name' placeholder="说出你的大名">
+        <!-- 许愿内容 -->
+        <input type="text" id="content" class="input" placeholder="许个愿吧" name="content">
+        <!-- 提交按钮 -->
+        <button class="submit" type="submit">提交</button>
+    </form>
+    
+
+    <script src="/javascripts/jquery-3.5.1.js"></script>
+    <script>
+        // var container;
+        var colors = ['#207de0','#42baec','#e3e197','#6cde47','#ecc733'];
+        // 创建许愿便笺
+        var createItem = function(name, content) {
+            var color = colors[parseInt(Math.random()*5)]
+            $('<div class="item"><p>'+name+':</p><p>'+content+'</p><a herf="#">关闭</a></div>').css({'background':color}).appendTo(container)
+        }
+        var list = $('#container').attr('data-list')
+        $.each(JSON.parse(list),function(i, v) {
+            createItem(v.name, v.content)
+        })
+    </script>
+</body>
+</html>
